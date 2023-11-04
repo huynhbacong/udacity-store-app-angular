@@ -1,0 +1,16 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "udacity_project",
+    "user": "magical_user",
+    "password": "password123"
+  },
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "udacity_project_test",
+    "user": "magical_user",
+    "password": "password123"
+  }
+}
