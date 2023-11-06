@@ -60,7 +60,28 @@ const completeOrder = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const deleteOrderedProduct = async (req: Request, res: Response): Promise<void> => {
+  try {
+    var user = req.body.user as User;
+    var userId = user.id;
+
+    var activeOrder = await store.getActiveOrdersByUser(userId);
+
+    if (!activeOrder.id) {
+      //create active order
+      throw new Error ('No active order!')
+    }
+
+    var result = await store.deleteOrderedProduct(activeOrder.id, Number(req.params.productid));
+    res.json(result);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
+}
+
 export const orderRoutes = (app: express.Application): void => {
   app.post("/orders/addProduct/:productId", authentication, addProduct);
   app.get("/orders/completed", authentication, completeOrder);
+  app.get("/orders/remove/:productId", authentication, deleteOrderedProduct);
 };

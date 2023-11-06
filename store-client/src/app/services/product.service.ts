@@ -66,6 +66,19 @@ export class ProductService {
     );
   }
 
+  deleteOrderedProduct(productId: number): Observable<boolean> {
+    const res = this.http.get<boolean>(
+      `${this.baseUrl}/orders/addProduct/${productId}`,
+      { headers: this.headers });
+
+    if (res) {
+      this.orderedProducts.products = this.orderedProducts.products.filter(p => p.id != productId);
+      this.setOrderedProducts(this.orderedProducts);
+    }
+    
+    return res;
+  }
+
   reset(): void {
     this.orderedProducts.orderId = 0;
     this.orderedProducts.products = [];

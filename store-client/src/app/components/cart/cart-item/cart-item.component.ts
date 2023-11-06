@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/models/product';
 
 @Component({
@@ -15,4 +15,9 @@ export class CartItemComponent {
     imgsrc: '',
     productAmount: 1
   };
+  @Output() removeEvent = new EventEmitter<number>();
+
+  onRemove(): void {
+    this.removeEvent.emit(this.product.id);
+  }
 }

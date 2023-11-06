@@ -40,14 +40,16 @@ export class CartComponent implements OnInit {
     }
 
     this.productService.getOrderedProducts().subscribe((res: GetOrderResponse) => {
-      console.log('responsed', res);
+      this.productService.setOrderedProducts(res);
+    });
+
+    this.productService.getOrderedProducts$().subscribe(res => {
       this.products = res.products;
       const sum = this.products.reduce((accumulator, currentValue) => {
-        console.log(currentValue.productAmount);
         return accumulator + Number(currentValue.price);
       }, 0);
       this.totalPrice = sum;
-    });
+    })
   }
 
   checkOut(): void {
@@ -61,5 +63,9 @@ export class CartComponent implements OnInit {
         alert('Cart is empty!');
       }
     });
+  }
+
+  onRemove(productId: number): void {
+    this.productService.deleteOrderedProduct(productId).subscribe();
   }
 }

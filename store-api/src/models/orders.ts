@@ -62,6 +62,21 @@ export class OrdersStore {
     }
   }
 
+  async deleteOrderedProduct(orderId: number, productId: number): Promise<boolean> {
+    try {
+      const conn = await client.connect();
+      const sql = "DELETE FROM ORDERS WHERE order_id = $1 AND product_id = $2";
+
+      await conn.query(sql, [orderId, productId]);
+      conn.release();
+
+      return true;
+    } catch (err: any) {
+      logError(err, `${this.put}`);
+      throw new Error(`unable update order (${orderId}): ${err}`);
+    }
+  }
+
   async create(order: Order): Promise<Order> {
     try {
       const conn = await client.connect();

@@ -1,5 +1,5 @@
 <div *ngFor="let product of products">
-    <app-cart-item [product]="product"></app-cart-item>
+    <app-cart-item [product]="product" (removeEvent)="onRemove($event)"></app-cart-item>
 </div>
 <div *ngIf="products.length == 0">
     <h4><i> No items in cart!</i></h4>
