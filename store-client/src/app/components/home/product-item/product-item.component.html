@@ -1,8 +1,9 @@
-<div>
-    <img src="{{product.imgSrc}}" alt="#" width="100px">
+<mat-card>
+    <img src="{{product.imgsrc}}" alt="product-item" width="150px">
     <p>{{product.name}}</p>
     <p>{{product.price}}</p>
-    <input #inputAmount type="number" min="0" value="0" name="amount" (change)="product.amount"/>
-    <h2>{{product.amount}}</h2>
-    <button (click)="addToCart(inputAmount.value)">Add to Cart</button>
-</div>
+    <input #inputAmount type="number" min="1" value="1" name="amount" (change)="product.productAmount"/>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(inputAmount.value)">Add to Cart</button>
+    </mat-card-actions>
+</mat-card>

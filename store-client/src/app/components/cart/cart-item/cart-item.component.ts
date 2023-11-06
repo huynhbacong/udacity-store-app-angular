@@ -12,6 +12,7 @@ export class CartItemComponent {
     name: '',
     price: 0,
     category: 1,
-    imgSrc: ''
+    imgsrc: '',
+    productAmount: 1
   };
 }

@@ -1,2 +1,8 @@
-<h1>Cong's Store</h1>
-<router-outlet></router-outlet>
+<ng-container >
+    <h1 class="logo">Cong's Store</h1>
+    <div class="menu">
+        <button mat-button color="primary" [routerLink]="['/home']">Home</button>
+        <button mat-button color="primary" matBadge="{{orderedProductCount}}" matBadgePosition="after" matBadgeColor="accent" [routerLink]="['/cart']">Cart</button>
+    </div>
+    <router-outlet></router-outlet>
+</ng-container>

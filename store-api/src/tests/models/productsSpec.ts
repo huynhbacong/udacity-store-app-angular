@@ -7,6 +7,7 @@ const _product: Product = {
   name: "test",
   price: 10.0,
   category: 1,
+  imgsrc: ''
 };
 
 describe("Products models", () => {

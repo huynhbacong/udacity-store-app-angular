@@ -8,9 +8,11 @@ import { dashboardRoutes } from "./handlers/dashboardHandler";
 
 const app: express.Application = express();
 const address: string = "0.0.0.0:3000";
+const PORT: number = 3000;
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:4200",
+  method: ['GET', 'POST'],
   optionsSuccessStatus: 200,
 };
 
@@ -26,7 +28,7 @@ userRoutes(app);
 orderRoutes(app);
 dashboardRoutes(app);
 
-app.listen(3000, function () {
+app.listen(PORT, function () {
   console.log(`starting app on: ${address}`);
 });
 

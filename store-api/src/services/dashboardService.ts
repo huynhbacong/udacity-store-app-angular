@@ -55,10 +55,11 @@ export class DashboardQueries {
         status: query.rows[0]?.status,
         products: query.rows?.map((x): object => {
           return {
-            productId: x.product_id,
+            id: x.product_id,
             price: x.price,
             category: x.category,
             productAmount: x.product_amount,
+            imgsrc: x.img_source
           };
         }),
       };

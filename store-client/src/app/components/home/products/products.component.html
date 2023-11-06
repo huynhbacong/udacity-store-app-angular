@@ -1,4 +1,7 @@
-<p>products works!</p>
-<div *ngFor="let product of products">
-    <app-product-item [product]="product"></app-product-item>
-</div>
+<ng-container >
+    <div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly">
+        <div *ngFor="let product of products" >
+            <app-product-item [product]="product" (onAddCart)="onAddCart($event)"></app-product-item>
+        </div>
+    </div>
+</ng-container>

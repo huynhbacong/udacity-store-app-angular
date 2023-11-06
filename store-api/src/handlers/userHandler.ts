@@ -28,7 +28,7 @@ const show = async (req: Request, res: Response): Promise<void> => {
 
 const create = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.username || !req.body.password_digest) {
       throw new Error("Missing username or password");
     }
 
@@ -37,7 +37,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       fisrtname: req.body.fisrtname,
       lastname: req.body.lastname,
       username: req.body.username,
-      password_digest: req.body.password,
+      password_digest: req.body.password_digest,
     };
 
     const newUser = await store.create(user);
@@ -55,7 +55,7 @@ const login = async (
   res: express.Response,
 ): Promise<void> => {
   try {
-    const user = await store.authenticate(req.body.username, req.body.password);
+    const user = await store.authenticate(req.body.username, req.body.password_digest);
 
     if (user != null) {
       const token = createJwtToken(user);
@@ -63,7 +63,7 @@ const login = async (
       return;
     }
 
-    res.status(401);
+    res.status(401).send("Username or password is incorrected!");
   } catch (err) {
     res.status(401);
     res.json(err);

@@ -11,6 +11,14 @@ import { ProductsComponent } from './components/home/products/products.component
 import { ProductItemComponent } from './components/home/product-item/product-item.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -22,14 +30,22 @@ import { CartItemComponent } from './components/cart/cart-item/cart-item.compone
     ProductsComponent,
     ProductItemComponent,
     CartComponent,
-    CartItemComponent
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
-    HttpClientModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatGridListModule,
+    MatBadgeModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

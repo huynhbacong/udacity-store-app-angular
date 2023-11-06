@@ -11,13 +11,14 @@ export interface Product {
   name: string;
   category: CategoryEnum;
   price: number;
+  imgsrc?: string;
 }
 
 export class ProductStore {
   async index(): Promise<Product[]> {
     try {
       const conn = await client.connect();
-      const sql = "SELECT * FROM PRODUCTS";
+      const sql = "SELECT *, img_source as imgsrc FROM PRODUCTS";
 
       const result = await conn.query(sql);
       conn.release();
@@ -62,6 +63,7 @@ export class ProductStore {
         name: result.rows[0]?.name,
         price: result.rows[0]?.price,
         category: result.rows[0]?.category,
+        imgsrc: result.rows[0]?.img_source
       };
 
       return product;

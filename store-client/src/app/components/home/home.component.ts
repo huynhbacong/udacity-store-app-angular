@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  constructor(private productService: ProductService) {}
+
+  addToCart(product: Product): void {
+    this.productService.addOrder(product).subscribe(res => console.log(res))
+  }
 }

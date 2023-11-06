@@ -1,2 +1,9 @@
-<app-login></app-login>
-<app-signup></app-signup>
+<mat-tab-group animationDuration="0ms" mat-stretch-tabs="false" mat-align-tabs="center">
+    <mat-tab label="Login">
+        <app-login (loginSubmit)="loginSubmit($event)" [loginError]="loginError"></app-login>
+    </mat-tab>
+    <mat-tab label="Sign Up">
+        <app-signup (signupSubmit)="signupSubmit($event)"></app-signup>
+    </mat-tab>
+</mat-tab-group>
+

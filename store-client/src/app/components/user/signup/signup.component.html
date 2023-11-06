@@ -1,12 +1,30 @@
-<h1>STORE SIGN UP</h1>
-<form>
-    <label>First Name:</label>
-    <input type="text" />
-    <label>Last Name:</label>
-    <input type="text"/>
-    <label>Username:</label>
-    <input type="text" />
-    <label>Password:</label>
-    <input type="text"/>
-    <button type="submit">Register</button>
-</form>
+<div class="container">
+    <h1>STORE SIGN UP</h1>
+    <form #form="ngForm" (ngSubmit)="onSignup()">
+        <label>First Name:</label>
+        <input type="text" [(ngModel)]="user.fisrtname" name="fisrtname"/>
+        <label>Last Name:</label>
+        <input type="text" [(ngModel)]="user.lastname" name="lastname"/>
+        <label class="required" >Username:</label>
+        <input type="text" [(ngModel)]="user.username" name="username" required minlength="6" #ursname="ngModel"/>
+        <label class="required" >Password:</label>
+        <input type="password" [(ngModel)]="user.password_digest" name="password" required minlength="6" #pwd="ngModel"/>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Register</button>
+    </form>
+    <div *ngIf="ursname.invalid && ursname.dirty" class="error-message">
+        <div *ngIf="ursname.errors!['required']">
+          Please provide a username.
+        </div>
+        <div *ngIf="ursname.errors!['minlength']">
+          The username must contain at least 6 characters.
+        </div>
+    </div>
+    <div *ngIf="pwd.invalid && pwd.dirty" class="error-message">
+        <div *ngIf="pwd.errors!['required']">
+            Please provide a password.
+        </div>
+        <div *ngIf="pwd.errors!['minlength']">
+            The password must contain at least 6 characters.
+        </div>
+    </div>
+</div>

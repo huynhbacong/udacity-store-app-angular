@@ -1,6 +1,6 @@
 <div>
-    <img src="{{product.imgSrc}}" alt="#" width="100px">
+    <img src="{{product.imgsrc}}" alt="#" width="100px">
     <p>{{product.name}}</p>
     <p>{{product.price}}</p>
-    <input #inputAmount type="number" min="0" value="0" name="amount" (change)="product.amount"/>
+    <input #inputAmount type="number" value="{{product.productAmount}}" name="amount" (change)="product.productAmount"/>
 </div>

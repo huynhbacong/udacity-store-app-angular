@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-signup',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
+  user: User = {
+    id: 0,
+    fisrtname: '',
+    lastname: '',
+    username: '',
+    password_digest: ''
+  }
 
+  @Output() signupSubmit: EventEmitter<User> = new EventEmitter();
+
+  onSignup(): void {
+    this.signupSubmit.emit(this.user);
+  }
 }

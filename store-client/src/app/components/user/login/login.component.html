@@ -1,8 +1,27 @@
-<h1>STORE LOGIN</h1>
-<form>
-    <label>Username:</label>
-    <input type="text" />
-    <label>Password:</label>
-    <input type="text"/>
-    <button type="submit">Login</button>
-</form>
+<div class="container">
+    <h1>STORE LOGIN</h1>
+    <form #form="ngForm" (ngSubmit)="onLogin()">
+        <label>Username:</label>
+        <input type="text" name="username" [(ngModel)]="username" required minlength="6" #name="ngModel"/>
+        <label>Password:</label>
+        <input type="password" name="password" [(ngModel)]="password" required minlength="6" #pwd="ngModel"/>
+        <button mat-raised-button color="primary" type="submit" value="Submit" [disabled]="form.invalid">Login</button>
+        <div *ngIf="loginError" class="error-message">{{loginError}}</div>
+    </form>
+    <div *ngIf="name.invalid && name.dirty" class="error-message">
+        <div *ngIf="name.errors!['required']">
+          Please provide a username.
+        </div>
+        <div *ngIf="name.errors!['minlength']">
+          The username must contain at least 6 characters.
+        </div>
+    </div>
+    <div *ngIf="pwd.invalid && pwd.dirty" class="error-message">
+        <div *ngIf="pwd.errors!['required']">
+            Please provide a password.
+        </div>
+        <div *ngIf="pwd.errors!['minlength']">
+            The password must contain at least 6 characters.
+        </div>
+    </div>
+</div>

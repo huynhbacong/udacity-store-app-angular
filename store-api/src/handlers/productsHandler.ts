@@ -33,6 +33,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       name: req.body.productName,
       price: req.body.price,
       category: getCategoryNumber(req.body.category) as CategoryEnum,
+      imgsrc: req.body.imgsrc
     };
 
     const isCreated = await store.create(product);

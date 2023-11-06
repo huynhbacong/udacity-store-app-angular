@@ -17,7 +17,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
 
     var activeOrder = await store.getActiveOrdersByUser(userId);
 
-    if (activeOrder == null || undefined) {
+    if (!activeOrder.id) {
       //create active order
       activeOrder = await store.create({
         id: 0,
