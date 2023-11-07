@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CustomerInfo } from 'src/app/models/customerInfo';
 import { GetOrderResponse } from 'src/app/models/getOrderResponse';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +15,13 @@ export class CartComponent implements OnInit {
   products: Product[] = [];
   totalPrice: number = 0;
   isNeedAuth: boolean = false;
+  isCheckoutSuccess: boolean = false;
+  customerInfo: CustomerInfo = {
+    fullname: '',
+    address: '',
+    creditCardNumber: '',
+    orderPrice: 0
+  }
 
   constructor(
     private authService: AuthService,
@@ -46,13 +54,14 @@ export class CartComponent implements OnInit {
     })
   }
 
-  checkOut(): void {
+  checkOut(customerInfo: CustomerInfo): void {
     this.checkAuth();
+    this.customerInfo = customerInfo;
+    this.customerInfo.orderPrice = this.totalPrice;
+
     this.productService.completeOrder(this.products).subscribe(res => {
       if(res) {
-        alert('Check Out Successful!');
-        this.products = [];
-        this.totalPrice = 0;
+        this.isCheckoutSuccess = true;
         this.productService.reset();
       } else {
         alert('Cart is empty!');
@@ -61,7 +70,9 @@ export class CartComponent implements OnInit {
   }
 
   onRemove(productId: number): void {
-    this.productService.deleteOrderedProduct(productId).subscribe();
+    this.productService.deleteOrderedProduct(productId).subscribe(() => {
+      alert('Removed from cart');
+    });
   }
 
   checkAuth(): void {

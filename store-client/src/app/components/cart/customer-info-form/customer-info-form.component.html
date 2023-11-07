@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-content>
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+            <label>Full Name</label>
+            <input type="text" name="username" [(ngModel)]="customerInfo.fullname" required minlength="6" #name="ngModel"/>
+            <div *ngIf="name.invalid && name.dirty" class="error-message">
+                <div *ngIf="name.errors!['required']">
+                Please provide a full name.
+                </div>
+                <div *ngIf="name.errors!['minlength']">
+                The full name must contain at least 6 characters.
+                </div>
+            </div>
+    
+            <label>Address</label>
+            <input type="text" name="address" [(ngModel)]="customerInfo.address" required minlength="6" #addressInfo="ngModel"/>
+            <div *ngIf="addressInfo.invalid && addressInfo.dirty" class="error-message">
+                <div *ngIf="addressInfo.errors!['required']">
+                    Please provide a address.
+                </div>
+                <div *ngIf="addressInfo.errors!['minlength']">
+                    The address must contain at least 6 characters.
+                </div>
+            </div>
+    
+            <label>Credit Card Number</label>
+            <input type="number" name="creditCard" [(ngModel)]="customerInfo.creditCardNumber" required min="100000000" #creditcardNo="ngModel"/>
+            <div *ngIf="creditcardNo.invalid && creditcardNo.dirty" class="error-message">
+                <div *ngIf="creditcardNo.errors!['required']">
+                    Please provide a credit card number.
+                </div>
+                <div *ngIf="creditcardNo.errors!['min']">
+                    The credit card number must contain at least 9 characters.
+                </div>
+            </div>
+    
+            <button mat-raised-button color="primary" type="submit" value="Submit" [disabled]="form.invalid || submitDisabled">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+

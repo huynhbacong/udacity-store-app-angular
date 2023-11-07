@@ -21,7 +21,8 @@ export class ProductsComponent implements OnInit {
         name: 'test',
         price: 10.00,
         category: 1,
-        imgsrc: 'https://m.media-amazon.com/images/I/81PtF30TLUL._AC_UY1100_.jpg'
+        imgsrc: 'https://m.media-amazon.com/images/I/81PtF30TLUL._AC_UY1100_.jpg',
+        productAmount: 1
       } as Product
     ];
 

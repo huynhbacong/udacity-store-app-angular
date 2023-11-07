@@ -19,6 +19,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatBadgeModule} from '@angular/material/badge';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CheckOutConfirmationComponent } from './components/cart/check-out-confirmation/check-out-confirmation.component';
+import { CustomerInfoFormComponent } from './components/cart/customer-info-form/customer-info-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     ProductItemComponent,
     CartComponent,
     CartItemComponent,
+    ProductDetailComponent,
+    CheckOutConfirmationComponent,
+    CustomerInfoFormComponent,
   ],
   imports: [
     BrowserModule,

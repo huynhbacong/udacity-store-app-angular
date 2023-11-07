@@ -3,7 +3,7 @@
     <p>{{product.name}}</p>
     <p>{{product.price}}</p>
     <mat-card-actions>
-        <input #inputAmount type="number" value="{{product.productAmount}}" name="amount" (change)="product.productAmount"/>
+        <input #inputAmount type="number" name="amount" [(ngModel)]="product.productAmount"/>
         <button mat-raised-button color="warn" (click)="onRemove()">Remove</button>
     </mat-card-actions>
 </mat-card>

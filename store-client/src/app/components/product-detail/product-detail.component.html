@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly" class="container">
+    <mat-card>
+        <img src="{{product.imgsrc}}" alt="product-item" width="300px">
+    </mat-card>
+    <div fxLayout="column" fxLayoutAlign="space-around baseline" >
+        <h1>{{product.name}}</h1>
+        <p>${{product.price}}</p>
+        <p>Description...</p>    
+        <input #inputAmount 
+            type="number" 
+            min="1" 
+            name="amount" 
+            value="1"
+            (ngModelChange)="product.productAmount"/>
+            
+        <button mat-raised-button color="primary" (click)="addToCart()">Add to Card</button>
+        <a [routerLink]="['/home']">
+            &larr; Back to product list
+        </a>
+    </div>
+</div>
