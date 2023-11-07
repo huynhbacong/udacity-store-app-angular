@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UserBase } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,21 +10,18 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UserComponent {
   loginError: string = '';
+  @Input() isNeedAuth: boolean = false;
+  @Output() isNeedAuthChange = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService, private router: Router) {}
 
   loginSubmit(user: UserBase): void {
-    console.log(user);
     this.authService.login(user).subscribe({
       next: (res) => {
         if (res) {
           console.log(res);
           this.authService.setToken(res);
-          if (this.authService.isCartRouter) {
-            this.router.navigate(['/cart']);
-          } else {
-            this.router.navigate(['/home']);
-          }
+          this.isNeedAuthChange.emit(false);
         }
       },
       error: (err) => {
@@ -39,9 +36,13 @@ export class UserComponent {
     this.authService.createUser(user).subscribe({
       next: (res) => {
         if (res) {
-          console.log(res);
           this.authService.setToken(res);
-          this.router.navigate(['/home']);
+          this.isNeedAuthChange.emit(false);
+          // if (this.authService.isCartRouter) {
+          //   this.router.navigate(['/cart']);
+          // } else {
+          //   this.router.navigate(['/home']);
+          // }
         }
       },
       error: (err) => {

@@ -48,8 +48,12 @@ const completeOrder = async (req: Request, res: Response): Promise<void> => {
     var activeOrder = await store.getActiveOrdersByUser(userId);
 
     if (activeOrder == null) {
-      res.json(null);
-      return;
+      //create active order
+      activeOrder = await store.create({
+        id: 0,
+        userId: userId,
+        status: StatusEnum.active,
+      } as Order);
     }
 
     var result = await store.put(activeOrder.id, StatusEnum.completed);
@@ -72,7 +76,7 @@ const deleteOrderedProduct = async (req: Request, res: Response): Promise<void> 
       throw new Error ('No active order!')
     }
 
-    var result = await store.deleteOrderedProduct(activeOrder.id, Number(req.params.productid));
+    var result = await store.deleteOrderedProduct(activeOrder.id, Number(req.params.productId));
     res.json(result);
   } catch (err) {
     res.status(400);
@@ -82,6 +86,6 @@ const deleteOrderedProduct = async (req: Request, res: Response): Promise<void> 
 
 export const orderRoutes = (app: express.Application): void => {
   app.post("/orders/addProduct/:productId", authentication, addProduct);
-  app.get("/orders/completed", authentication, completeOrder);
-  app.get("/orders/remove/:productId", authentication, deleteOrderedProduct);
+  app.post("/orders/completed", authentication, completeOrder);
+  app.delete("/orders/remove/:productId", authentication, deleteOrderedProduct);
 };

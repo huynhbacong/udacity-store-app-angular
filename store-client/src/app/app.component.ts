@@ -17,7 +17,7 @@ export class AppComponent implements OnInit{
     });
 
     this.productService.getOrderedProducts$().subscribe(res => {
-      this.orderedProductCount = res.products.length;
+      this.orderedProductCount = res.products?.length ?? 0;
     })
   }
 }

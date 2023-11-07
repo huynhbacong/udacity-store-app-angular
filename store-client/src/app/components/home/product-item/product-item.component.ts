@@ -25,7 +25,5 @@ export class ProductItemComponent implements OnInit{
   addToCart(amount: string): void {
     this.product.productAmount = Number(amount);
     this.onAddCart.emit(this.product)
-    console.log(this.product.productAmount);
-    console.log(amount);
   }
 }

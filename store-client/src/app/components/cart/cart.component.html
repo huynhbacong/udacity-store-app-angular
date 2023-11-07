@@ -1,16 +1,23 @@
-<div *ngFor="let product of products">
-    <app-cart-item [product]="product" (removeEvent)="onRemove($event)"></app-cart-item>
+<div fxLayout="row" fxLayoutAlign="space-around">
+    <div>
+        <div *ngFor="let product of products">
+            <app-cart-item [product]="product" (removeEvent)="onRemove($event)"></app-cart-item>
+        </div>
+        <div *ngIf="products.length == 0">
+            <h4><i> No items in cart!</i></h4>
+        </div>
+        <div>
+            <h2>Total: ${{totalPrice}}</h2>
+        </div>
+        <button 
+            mat-raised-button color="primary" 
+            (click)="checkOut()" 
+            [disabled]="products.length == 0"
+            >
+            Check Out
+        </button>
+    </div>
+    <div>
+        <app-user *ngIf="isNeedAuth" [(isNeedAuth)]="isNeedAuth"></app-user>
+    </div>
 </div>
-<div *ngIf="products.length == 0">
-    <h4><i> No items in cart!</i></h4>
-</div>
-<div>
-    <h2>Total: ${{totalPrice}}</h2>
-</div>
-<button 
-    mat-raised-button color="primary" 
-    (click)="checkOut()" 
-    [disabled]="products.length == 0"
-    >
-    Check Out
-</button>

@@ -12,6 +12,6 @@ export class HomeComponent {
   constructor(private productService: ProductService) {}
 
   addToCart(product: Product): void {
-    this.productService.addOrder(product).subscribe(res => console.log(res))
+    this.productService.addOrder(product).subscribe();
   }
 }

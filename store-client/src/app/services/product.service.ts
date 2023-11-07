@@ -12,7 +12,7 @@ import { GetOrderResponse, Order } from '../models/getOrderResponse';
 })
 export class ProductService {
   baseUrl = environment.apiUrl;
-  headers: HttpHeaders;
+  headers = new HttpHeaders;
   private orderedProducts: GetOrderResponse = {
     orderId: 0,
     products: [],
@@ -21,9 +21,11 @@ export class ProductService {
   private orderedProducts$ = new BehaviorSubject<GetOrderResponse>(this.orderedProducts);
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.headers = new HttpHeaders({
-      Authorization: 'Bearer ' + authService.getToken(), // Get the token from your authentication service/storage
-    });
+    authService.getToken().subscribe(res => {
+      this.headers = new HttpHeaders({
+        Authorization: 'Bearer ' + res, // Get the token from your authentication service/storage
+      });
+    })
   }
 
   setOrderedProducts(data: GetOrderResponse): void {
@@ -52,30 +54,33 @@ export class ProductService {
       { headers: this.headers }
     );
 
-    if(res) {
-      this.orderedProducts.products.push(product);
+    if (res) {
+      this.orderedProducts.products?.push(product);
       this.setOrderedProducts(this.orderedProducts);
     }
+    
     return res;
   }
 
-  completeOrder(): Observable<Order> {
-    return this.http.get<Order>(
+  completeOrder(products: Product[]): Observable<Order> {
+    return this.http.post<Order>(
       `${this.baseUrl}/orders/completed`,
+      {products: products},
       { headers: this.headers }
     );
   }
 
   deleteOrderedProduct(productId: number): Observable<boolean> {
-    const res = this.http.get<boolean>(
-      `${this.baseUrl}/orders/addProduct/${productId}`,
+    const res = this.http.delete<boolean>(
+      `${this.baseUrl}/orders/remove/${productId}`,
       { headers: this.headers });
 
     if (res) {
-      this.orderedProducts.products = this.orderedProducts.products.filter(p => p.id != productId);
+      console.log("res", res);
+      this.orderedProducts.products = this.orderedProducts.products?.filter(p => p.id != productId);
       this.setOrderedProducts(this.orderedProducts);
     }
-    
+
     return res;
   }
 

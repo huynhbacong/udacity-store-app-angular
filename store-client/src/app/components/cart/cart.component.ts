@@ -13,6 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class CartComponent implements OnInit {
   products: Product[] = [];
   totalPrice: number = 0;
+  isNeedAuth: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -32,19 +33,12 @@ export class CartComponent implements OnInit {
       } as Product,
     ];
 
-    if (!this.authService.getToken()) {
-      this.authService.isCartRouter = true;
-      this.router.navigate(['/']);
-      this.authService.isCartRouter = true;
-      return;
-    }
-
     this.productService.getOrderedProducts().subscribe((res: GetOrderResponse) => {
       this.productService.setOrderedProducts(res);
     });
 
     this.productService.getOrderedProducts$().subscribe(res => {
-      this.products = res.products;
+      this.products = res.products ?? [];
       const sum = this.products.reduce((accumulator, currentValue) => {
         return accumulator + Number(currentValue.price);
       }, 0);
@@ -53,8 +47,9 @@ export class CartComponent implements OnInit {
   }
 
   checkOut(): void {
-    this.productService.completeOrder().subscribe(res =>{
-      if(res.id) {
+    this.checkAuth();
+    this.productService.completeOrder(this.products).subscribe(res => {
+      if(res) {
         alert('Check Out Successful!');
         this.products = [];
         this.totalPrice = 0;
@@ -67,5 +62,13 @@ export class CartComponent implements OnInit {
 
   onRemove(productId: number): void {
     this.productService.deleteOrderedProduct(productId).subscribe();
+  }
+
+  checkAuth(): void {
+    this.authService.getToken().subscribe(res => {
+      if (!res) {
+        this.isNeedAuth = true;
+      }
+    });
   }
 }
