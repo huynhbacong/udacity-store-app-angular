@@ -22,7 +22,7 @@
             <app-customer-info-form #customerInfoForm (submitInfo)="checkOut($event)" [submitDisabled]="products.length == 0"></app-customer-info-form>
         </div>
     </div>
-    <app-user *ngIf="isNeedAuth" [(isNeedAuth)]="isNeedAuth"></app-user>
+    <!-- <app-user *ngIf="isNeedAuth" [(isNeedAuth)]="isNeedAuth"></app-user> -->
     <app-check-out-confirmation 
         *ngIf="isCheckoutSuccess" 
         [customerInfo]="customerInfo">

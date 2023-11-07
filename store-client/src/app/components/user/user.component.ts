@@ -41,7 +41,7 @@ export class UserComponent {
           // if (this.authService.isCartRouter) {
           //   this.router.navigate(['/cart']);
           // } else {
-          //   this.router.navigate(['/home']);
+          //   this.router.navigate(['']);
           // }
         }
       },
