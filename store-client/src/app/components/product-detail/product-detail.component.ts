@@ -31,8 +31,7 @@ export class ProductDetailComponent {
   }
 
   addToCart(): void {
-    this.productService.addOrder(this.product).subscribe(() => {
-      alert('Added to card!');
-    });
+    this.productService.addOrder(this.product).subscribe();
+    alert('Added to card!');
   }
 }

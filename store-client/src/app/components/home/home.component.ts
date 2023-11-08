@@ -12,8 +12,7 @@ export class HomeComponent {
   constructor(private productService: ProductService) {}
 
   addToCart(product: Product): void {
-    this.productService.addOrder(product).subscribe(() => {
-      alert('Added to card!');
-    });
+    this.productService.addOrder(product).subscribe();
+    alert('Added to card!');
   }
 }

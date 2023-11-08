@@ -55,24 +55,23 @@ export class CartComponent implements OnInit {
   }
 
   checkOut(customerInfo: CustomerInfo): void {
-    this.checkAuth();
+    // this.checkAuth();
     this.customerInfo = customerInfo;
     this.customerInfo.orderPrice = this.totalPrice;
-
-    this.productService.completeOrder(this.products).subscribe(res => {
-      if(res) {
-        this.isCheckoutSuccess = true;
-        this.productService.reset();
-      } else {
-        alert('Cart is empty!');
-      }
-    });
+    
+    this.isCheckoutSuccess = true;
+    this.productService.reset();
+    // this.productService.completeOrder(this.products).subscribe(res => {
+    //   if(res) {
+    //   } else {
+    //     alert('Cart is empty!');
+    //   }
+    // });
   }
 
   onRemove(productId: number): void {
-    this.productService.deleteOrderedProduct(productId).subscribe(() => {
-      alert('Removed from cart');
-    });
+    this.productService.deleteOrderedProduct(productId).subscribe();
+    alert('Removed from cart');
   }
 
   checkAuth(): void {
